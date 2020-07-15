@@ -35,12 +35,38 @@ class State:
   # Calculate and return final score for each player in an array
   def finalScore(self):
     scores = []
+    makiMax = -1
+    makiSecond = -1
 
     for i in range(self.numPlayers):
       scores.append(self.getPlayerScore(i))
+      selection = self.getPlayerSelection(i)
+      mc = selection[CARDS.MAKI_1] + 2 * selection[CARDS.MAKI_2] + 3 * selection[CARDS.MAKI_3]
+
+      if mc > makiMax:
+        makiSecond = makiMax
+        makiMax = mc
+      elif mc > makiSecond:
+        makiSecond = mc
 
     # TODO: Add pudding score calculation
     # For simplicity of AI, this will be left out for now
+    # Also, maki cards behave similarly as pudding cards
+    makiMaxSet = []
+    makiSecondSet = []
+
+    for i in range(self.numPlayers):
+      selection = self.getPlayerSelection(i)
+      mc = selection[CARDS.MAKI_1] + 2 * selection[CARDS.MAKI_2] + 3 * selection[CARDS.MAKI_3]
+      if mc == makiMax:
+        makiMaxSet.append(i)
+      elif mc == makiSecond:
+        makiSecondSet.append(i)
+    
+    for i in makiMaxSet:
+      scores[i] = scores[i] + int(6 / len(makiMaxSet))
+    for i in makiSecondSet:
+      scores[i] = scores[i] + int(3 / len(makiSecondSet))
 
     return scores
 
