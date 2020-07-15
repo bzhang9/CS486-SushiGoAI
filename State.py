@@ -34,8 +34,15 @@ class State:
 
   # Calculate and return final score for each player in an array
   def finalScore(self):
-#TODO
-    return []
+    scores = []
+
+    for i in range(self.numPlayers):
+      scores.append(self.getPlayerScore(i))
+
+    # TODO: Add pudding score calculation
+    # For simplicity of AI, this will be left out for now
+
+    return scores
 
   # Deal starting hands to players
   # and initialize game params
@@ -90,7 +97,8 @@ class State:
           self.isCorrupt = True
         return False
       else:
-        self.players[i].selection[cardt] = self.players[i].selection[cardt] + 1
+        #self.players[i].selection[cardt] = self.players[i].selection[cardt] + 1
+        self.players[i].selectCard(cardt)
         del hand[cardi]
 
     self.turn = self.turn + 1

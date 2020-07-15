@@ -100,3 +100,21 @@ if __name__ == '__main__':
 
   scores = state.finalScore()
 
+  winners = []
+  maxScore = -1
+  for s in scores:
+    if s > maxScore:
+      maxScore = s
+
+  for i in range(state.numPlayers):
+    if scores[i] == maxScore:
+      winners.append(i)
+
+  print()
+  print("The winners are:")
+  for w in winners:
+    if (w != aiIndex):
+      print("Player {0}".format(w))
+    else:
+      print("The AI! (Player {0})".format(w))
+
