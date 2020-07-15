@@ -1,0 +1,33 @@
+from enum import Enum
+
+class CARDS(Enum):
+  TEMPURA = 0
+  SASHIMI = 1
+  DUMPLING = 2
+  MAKI_1 = 3
+  MAKI_2 = 4
+  MAKI_3 = 5
+  SALMON_N = 6
+  SQUID_N = 7
+  EGG_N = 8
+  PUDDING = 9
+  WASABI = 10
+  CHOPSTICKS = 11
+
+CARDS_COUNT = {
+  CARDS.TEMPURA : 14,
+  CARDS.SASHIMI : 14,
+  CARDS.DUMPLING : 14,
+  CARDS.MAKI_1 : 6,
+  CARDS.MAKI_2 : 12,
+  CARDS.MAKI_3 : 8,
+  CARDS.SALMON_N : 10,
+  CARDS.SQUID_N : 5,
+  CARDS.EGG_N : 5,
+  CARDS.PUDDING : 10,
+  CARDS.WASABI : 6,
+  CARDS.CHOPSTICKS : 4
+}
+
+def calculateScore(hand):
+  return 0
