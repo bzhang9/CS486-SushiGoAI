@@ -5,6 +5,9 @@ from State import State
 
 # ### means to be implemented for AI player
 
+# CONSTANTS
+SEPARATOR = "------------------------------"
+
 # Have player choose a card
 def chooseCard(s, h, sc):
   print("Your current score is {0}".format(sc))
@@ -14,9 +17,9 @@ def chooseCard(s, h, sc):
     
   print("\nChoose from the cards below:")
   for i in range(len(h)):
-    print("{0}: {1}".format(i, h[i]))
+    print("{0}: {1}".format(i, h[i].name))
   
-  cardi = int(input("\nCard number:"))
+  cardi = int(input("\nCard number: "))
   cardt = None
   if cardi >= len(h) or cardi < 0:
     cardi = None
@@ -28,8 +31,10 @@ def chooseCard(s, h, sc):
   return cardi, cardt
 
 def printSelected(s):
+  print(SEPARATOR)
   for i in range(len(s)):
-    print("Player {0} chose {1}".format(i, s[i][1]))
+    print("Player {0} chose {1}".format(i, s[i][1].name))
+  print(SEPARATOR)
 
 # Play a turn of the game 
 # given state and the ai
@@ -48,6 +53,11 @@ def play(state, ai, aiIndex = None):
     hand = state.getHand(i)
     selection = state.getPlayerSelection(i)
     score = state.getPlayerScore(i)
+
+    print(SEPARATOR)
+    print("PLAYER {0} TURN".format(i))
+    print(SEPARATOR)
+
     if i != aiIndex:
       while cardi == None or cardt == None:
         cardi, cardt = chooseCard(selection, hand, score)
@@ -71,25 +81,27 @@ def play(state, ai, aiIndex = None):
     #TODO may not need to do anything
 
 if __name__ == '__main__':
-  numPlayers = int(input("Number of Players:"))
+  numPlayers = int(input("Number of Players: "))
   state = State(numPlayers)
 
 
 #TODO multiple AI Player indices
-  aiIndex = int(input("AI Player Index:"))
+  aiIndex = int(input("AI Player Index (Negative value for none): "))
   ai = None
 
   if aiIndex >= numPlayers:
     print("ERROR: {0} greater than max value {1}, defaulting to no AI".format(aiIndex, numPlayers))
     aiIndex = None
   elif aiIndex < 0:
+    print(SEPARATOR)
     print("No AI player set")
+    print(SEPARATOR)
     aiIndex = None
   else:
     ###ai = AI(aiIndex)
     pass
   
-  seed = input("Provide seed for shuffling? (enter single character for no, else provide seed >= 10)")
+  seed = input("Provide seed for shuffling? (enter single character for no, else provide seed >= 10): ")
   if len(seed) > 1:
     state.setRandSeed(seed)
 
