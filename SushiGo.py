@@ -64,7 +64,8 @@ def play(state, ai, aiIndex = None):
         if cardi == None or cardt == None:
           print("ERROR: Invalid selection (ci:{0}, ct{1}".format(cardi, cardt))
     else:
-      cardi, cardt = ai.chooseCard(selection, hand, score)
+      ###cardi, cardt = ai.chooseCard(selection, hand, score)
+      pass
     if cardi != None and cardt != None:
       selected.append([cardi, cardt])
         
