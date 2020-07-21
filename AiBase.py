@@ -24,11 +24,13 @@ class AiBase(ABC):
     for index, card in enumerate(hand):
       potentialSelection = selection.copy()
       self.buildSelection(potentialSelection, card)
-      expectedScord = calculateScore(potentialSelection)
-      expectedScord += self.getCardWeight(card, selection)
+      expectedScore = calculateScore(potentialSelection) - calculateScore(selection)
+      expectedScore += self.getCardWeight(card, selection)
 
-      if expectedScord > bestScore:
-        bestScore = expectedScord
+      #print('Considering {}, with score {}'.format(card, expectedScore))
+
+      if expectedScore > bestScore:
+        bestScore = expectedScore
         cardi = index
 
     print('AI picks {} which gives weighted score: {}'.format(hand[cardi], bestScore))
