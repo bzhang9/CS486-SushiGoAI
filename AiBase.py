@@ -5,8 +5,9 @@ class AiBase(ABC):
   def __init__(self, index):
     self.index = index
     self.selection = {}
+    self.library = {}  # tracks how many of each card is in play this round
 
-  def chooseCard(self, selection, hand, score):
+  def chooseCard(self, selection, hand, score, state):
     cardi = self.bestSelection(selection, hand)
     cardt = hand[cardi]
       
