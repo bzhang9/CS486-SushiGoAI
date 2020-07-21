@@ -1,7 +1,7 @@
 from State import State
 
 
-###from <AI> import <AI>
+from AiBase import AiBase
 
 # ### means to be implemented for AI player
 
@@ -38,12 +38,7 @@ def printSelected(s):
 
 # Play a turn of the game 
 # given state and the ai
-# if aiIndex is passed in, the ai will select a card for the player at index aiIndex
-def play(state, ai, aiIndex = None):
-  if aiIndex == None and ai != None:
-    ###aiIndex = ai.index
-    pass
-
+def play(state, ai):
   # list of pairs
   selected = []
   for i in range(state.numPlayers):
@@ -58,13 +53,13 @@ def play(state, ai, aiIndex = None):
     print("PLAYER {0} TURN".format(i))
     print(SEPARATOR)
 
-    if i != aiIndex:
+    if ai.get(i) == None:
       while cardi == None or cardt == None:
         cardi, cardt = chooseCard(selection, hand, score)
         if cardi == None or cardt == None:
           print("ERROR: Invalid selection (ci:{0}, ct{1}".format(cardi, cardt))
     else:
-      ###cardi, cardt = ai.chooseCard(selection, hand, score)
+      cardi, cardt = ai[i].chooseCard(selection, hand, score)
       pass
     if cardi != None and cardt != None:
       selected.append([cardi, cardt])
@@ -75,8 +70,8 @@ def play(state, ai, aiIndex = None):
   success = state.select(selected)
   if success:
     printSelected(selected)
-    if ai != None:
-      ###ai.endOfTurn(selected)
+    for k in ai:
+      ai[k].endOfTurn(selected)
       pass
   #else:
     #TODO may not need to do anything
@@ -86,21 +81,24 @@ if __name__ == '__main__':
   state = State(numPlayers)
 
 
-#TODO multiple AI Player indices
-  aiIndex = int(input("AI Player Index (Negative value for none): "))
-  ai = None
 
-  if aiIndex >= numPlayers:
-    print("ERROR: {0} greater than max value {1}, defaulting to no AI".format(aiIndex, numPlayers))
-    aiIndex = None
-  elif aiIndex < 0:
-    print(SEPARATOR)
-    print("No AI player set")
-    print(SEPARATOR)
-    aiIndex = None
-  else:
-    ###ai = AI(aiIndex)
-    pass
+
+  ai = {}
+  while True:
+    aiIndex = int(input("AI Player Index (Negative value for no more additional): "))
+
+    if aiIndex >= numPlayers:
+      print("ERROR: {0} greater than max value {1}".format(aiIndex, numPlayers))
+      
+    elif aiIndex < 0:
+      print(SEPARATOR)
+      print("Index {0}: No AI player set".format(aiIndex))
+      print(SEPARATOR)
+      break
+    elif ai.get(aiIndex) == None:
+      ai[aiIndex] = AiBase(aiIndex)
+    else:
+      print("ERROR: Duplicate AI Index")
   
   seed = input("Provide seed for shuffling? (enter single character for no, else provide seed >= 10): ")
   if len(seed) > 1:
@@ -126,7 +124,7 @@ if __name__ == '__main__':
   print()
   print("The winners are:")
   for w in winners:
-    if (w != aiIndex):
+    if (ai.get(w) == None):
       print("Player {0}".format(w))
     else:
       print("The AI! (Player {0})".format(w))
