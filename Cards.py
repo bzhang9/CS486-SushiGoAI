@@ -33,7 +33,7 @@ CARDS_COUNT = {
   # Ignoring pudding for now
   CARDS.PUDDING : 0,
   CARDS.WASABI : 6,
-  CARDS.CHOPSTICKS : 4,
+  CARDS.CHOPSTICKS : 0,
   # Used for score calculation
   CARDS.WASABI_BONUS : 0,
   CARDS.SALMON_N_BONUS : 0,
