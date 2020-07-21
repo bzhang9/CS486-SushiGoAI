@@ -17,7 +17,8 @@ def chooseCard(s, h, sc):
   print("Your current score is {0}".format(sc))
   print("Your current hand:")
   for key in s:
-    print("{0}: {1}".format(key, s[key]))
+    if s[key] != 0:
+      print("{0}: {1}".format(key, s[key]))
     
   print("\nChoose from the cards below:")
   for i in range(len(h)):
@@ -62,6 +63,16 @@ def play(state, ai):
 
     if ai.get(i) == None:
       while cardi == None or cardt == None:
+        print("ALL PLAYERS SELECTED CARDS:")
+        for p in range(state.numPlayers):
+          print("PLAYER {0} HAND".format(p))
+          pSelect = state.getPlayerSelection(p)
+          for pSKey in pSelect:
+            if pSelect[pSKey] != 0:
+              print("{0}: {1}".format(pSKey, pSelect[pSKey]))
+
+          print(SEPARATOR)
+        print(SEPARATOR)
         cardi, cardt = chooseCard(selection, hand, score)
         if cardi == None or cardt == None:
           print("ERROR: Invalid selection (ci:{0}, ct{1}".format(cardi, cardt))
@@ -69,6 +80,8 @@ def play(state, ai):
       cardi, cardt = ai[i].chooseCard(selection, hand, score, state)
       pass
     if cardi != None and cardt != None:
+      if not silent:
+        print("PLAYER {0} SELECTED {1}".format(i, cardt))
       selected.append([cardi, cardt])
         
     else:
