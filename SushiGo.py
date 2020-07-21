@@ -9,6 +9,9 @@ from AiBase import AiBase
 # CONSTANTS
 SEPARATOR = "------------------------------"
 
+# Silent output
+silent = False
+
 # Have player choose a card
 def chooseCard(s, h, sc):
   print("Your current score is {0}".format(sc))
@@ -26,12 +29,14 @@ def chooseCard(s, h, sc):
     cardi = None
   else:
     cardt = h[cardi]
-
+  
   print()
 
   return cardi, cardt
 
 def printSelected(s):
+  if silent:
+    return
   print(SEPARATOR)
   for i in range(len(s)):
     print("Player {0} chose {1}".format(i, s[i][1].name))
@@ -50,9 +55,10 @@ def play(state, ai):
     selection = state.getPlayerSelection(i)
     score = state.getPlayerScore(i)
 
-    print(SEPARATOR)
-    print("PLAYER {0} TURN".format(i))
-    print(SEPARATOR)
+    if not silent:
+      print(SEPARATOR)
+      print("PLAYER {0} TURN".format(i))
+      print(SEPARATOR)
 
     if ai.get(i) == None:
       while cardi == None or cardt == None:
@@ -81,7 +87,7 @@ if __name__ == '__main__':
   numPlayers = None
   ai = {}
   seed = "0"
-
+  
 
   if len(sys.argv) > 1:
     argi = 1
@@ -104,6 +110,10 @@ if __name__ == '__main__':
       if aiType == 0:
         ai[aiIndex] = AiBase(aiIndex)
       # Add more aiTypes here
+
+      # silent mode
+      if argi == (len(sys.argv) - 1) and sys.argv[argi] == "-s":
+        silent = True
         
   else:
     numPlayers = int(input("Number of Players: "))
