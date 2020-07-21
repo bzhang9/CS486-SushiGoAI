@@ -25,12 +25,13 @@ class AiBase(ABC):
       potentialSelection = selection.copy()
       self.buildSelection(potentialSelection, card)
       expectedScord = calculateScore(potentialSelection)
+      expectedScord += self.getCardWeight(card, selection)
 
       if expectedScord > bestScore:
         bestScore = expectedScord
         cardi = index
 
-    print('AI picks {} which gives total score: {}'.format(hand[cardi], bestScore))
+    print('AI picks {} which gives weighted score: {}'.format(hand[cardi], bestScore))
     return cardi
 
   # Add card to selection
@@ -40,3 +41,29 @@ class AiBase(ABC):
       if selection[CARDS.WASABI] > selection[CARDS.WASABI_BONUS]:
         selection[CARDS(card.value + 7)] = selection[CARDS(card.value + 7)] + 1
         selection[CARDS.WASABI_BONUS] = selection[CARDS.WASABI_BONUS] + 1
+
+  # Heuristic for card weights
+  def getCardWeight(self, card, selection):
+    if card == CARDS.TEMPURA:
+      return 2
+    elif card == CARDS.SASHIMI:
+      return 3
+    elif card == CARDS.DUMPLING:
+      return 2.5
+    elif card == CARDS.MAKI_1:
+      return 1
+    elif card == CARDS.MAKI_2:
+      return 2
+    elif card == CARDS.MAKI_3:
+      return 3
+    elif card == CARDS.SALMON_N:
+      return 2
+    elif card == CARDS.SQUID_N:
+      return 3
+    elif card == CARDS.EGG_N:
+      return 1
+    elif card == CARDS.WASABI:
+      return 2
+    else:
+      print('Card {} does not currently have a weight.'.format(card))
+      return 0
