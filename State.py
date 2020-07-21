@@ -147,6 +147,11 @@ class State:
   def getPlayerSelection(self, i):
     return self.players[i].selection
 
+  # Get player's maki count
+  def getPlayerMaki(self, i):
+    selection = self.players[i].selection
+    return selection[CARDS.MAKI_1] + 2*selection[CARDS.MAKI_2] + 3*selection[CARDS.MAKI_3]
+
   # Seed RNG
   def setRandSeed(self, seed):
     random.seed(seed)

@@ -130,4 +130,4 @@ if __name__ == '__main__':
       print("The AI! (Player {0})".format(w))
   print()
   for i in range(len(scores)):
-    print("Player " + str(i) + " score: " + str(scores[i]))
+    print("Player " + str(i) + " score: " + str(scores[i]) + " maki: " + str(state.getPlayerMaki(i)))
