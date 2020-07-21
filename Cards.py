@@ -51,12 +51,12 @@ def calculateScore(hand):
     cDumplings = 5
   sDumplings = DUMPLING_SCORE[cDumplings]
 
-  sBSalmon = hand[CARDS.SALMON_N_BONUS] * 9
-  sBSquid = hand[CARDS.SQUID_N_BONUS] * 6
+  sBSalmon = hand[CARDS.SALMON_N_BONUS] * 6
+  sBSquid = hand[CARDS.SQUID_N_BONUS] * 9
   sBEgg = hand[CARDS.EGG_N_BONUS] * 3
 
-  sSalmon = (hand[CARDS.SALMON_N] - hand[CARDS.SALMON_N_BONUS]) * 3
-  sSquid = (hand[CARDS.SQUID_N] - hand[CARDS.SQUID_N_BONUS]) * 2
+  sSalmon = (hand[CARDS.SALMON_N] - hand[CARDS.SALMON_N_BONUS]) * 2
+  sSquid = (hand[CARDS.SQUID_N] - hand[CARDS.SQUID_N_BONUS]) * 3
   sEgg = hand[CARDS.EGG_N] - hand[CARDS.EGG_N_BONUS]
 
   return (sTempura + sSashimi) + sDumplings + (sBSalmon + sBSquid + sBEgg) + (sSalmon + sSquid + sEgg)
