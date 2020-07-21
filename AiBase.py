@@ -8,7 +8,7 @@ class AiBase(ABC):
     self.selection = {}
 
   def chooseCard(self, selection, hand, score, state):
-    cardi = 0 if self.random else self.bestSelection(selection, hand, state)
+    cardi = random.randint(0, len(hand) - 1) if self.random else self.bestSelection(selection, hand, state)
     cardt = hand[cardi]
       
     return cardi, cardt

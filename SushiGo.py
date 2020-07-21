@@ -173,7 +173,7 @@ if __name__ == '__main__':
   n = state.turn
   line = []
   for k in [CARDS.TEMPURA,CARDS.SASHIMI,CARDS.DUMPLING,CARDS.MAKI_1,CARDS.MAKI_2,CARDS.MAKI_3,CARDS.SALMON_N,CARDS.SQUID_N,CARDS.EGG_N,CARDS.WASABI]:
-    line.append(str(state.getPlayerSelection(0)[k]/n))
-  line.append(str(scores[0]/n))
-  line.append(str(1+[sorted(scores, reverse=True).index(x) for x in scores][0]))
+    line.append(str(state.getPlayerSelection(len(winners)-1)[k]/n))
+  line.append(str(scores[len(winners)-1]/n))
+  line.append(str(1+[sorted(scores, reverse=True).index(x) for x in scores][len(winners)-1]))
   f.write(",".join(line)+"\n")
