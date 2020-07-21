@@ -1,6 +1,6 @@
 import sys
 from State import State
-
+from Cards import CARDS
 
 from AiBase import AiBase
 
@@ -108,9 +108,10 @@ if __name__ == '__main__':
         raise Exception("CRITICAL ERROR: Duplicate AI Index, {0}".format(aiIndex))
 
       if aiType == 0:
-        ai[aiIndex] = AiBase(aiIndex, False) # set this param to true for random mode
-      # Add more aiTypes here
-
+        ai[aiIndex] = AiBase(aiIndex, True)
+      elif aiType == 1:
+        ai[aiIndex] = AiBase(aiIndex, False) 
+      
       # silent mode
       if argi == (len(sys.argv) - 1) and sys.argv[argi] == "-s":
         silent = True
@@ -156,13 +157,23 @@ if __name__ == '__main__':
     if scores[i] == maxScore:
       winners.append(i)
 
-  print()
-  print("The winners are:")
-  for w in winners:
-    if (ai.get(w) == None):
-      print("Player {0}".format(w))
-    else:
-      print("The AI! (Player {0})".format(w))
-  print()
-  for i in range(len(scores)):
-    print("Player " + str(i) + " score: " + str(scores[i]) + " maki: " + str(state.getPlayerMaki(i)))
+  if not silent:
+    print()
+    print("The winners are:")
+    for w in winners:
+      if (ai.get(w) == None):
+        print("Player {0}".format(w))
+      else:
+        print("The AI! (Player {0})".format(w))
+    print()
+    for i in range(len(scores)):
+      print("Player " + str(i) + " score: " + str(scores[i]) + " maki: " + str(state.getPlayerMaki(i)))
+
+  f = open("iter8.csv", "a")
+  n = state.turn
+  line = []
+  for k in [CARDS.TEMPURA,CARDS.SASHIMI,CARDS.DUMPLING,CARDS.MAKI_1,CARDS.MAKI_2,CARDS.MAKI_3,CARDS.SALMON_N,CARDS.SQUID_N,CARDS.EGG_N,CARDS.WASABI]:
+    line.append(str(state.getPlayerSelection(0)[k]/n))
+  line.append(str(scores[0]/n))
+  line.append(str(1+[sorted(scores, reverse=True).index(x) for x in scores][0]))
+  f.write(",".join(line)+"\n")

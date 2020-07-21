@@ -8,7 +8,7 @@ class AiBase(ABC):
     self.selection = {}
 
   def chooseCard(self, selection, hand, score, state):
-    cardi = 0 if random else self.bestSelection(selection, hand, state)
+    cardi = 0 if self.random else self.bestSelection(selection, hand, state)
     cardt = hand[cardi]
       
     return cardi, cardt
@@ -34,7 +34,7 @@ class AiBase(ABC):
         bestScore = expectedScore
         cardi = index
 
-    print('AI picks {} which gives weighted score: {}'.format(hand[cardi], bestScore))
+    # print('AI picks {} which gives weighted score: {}'.format(hand[cardi], bestScore))
     return cardi
 
   # Add card to selection
@@ -94,6 +94,8 @@ class AiBase(ABC):
           return 5
         if hands[1][CARDS.TEMPURA] == 1:
           return 4
+      if library[CARDS.TEMPURA] == 2:
+        return 2
       return 2.5
 
     elif card == CARDS.SASHIMI:
@@ -114,6 +116,8 @@ class AiBase(ABC):
         return 0
       if library[CARDS.SASHIMI] == 3:
         return 2
+      if library[CARDS.SASHIMI] == 4:
+        return 2.5
       if len(hands) == state.numPlayers:
         if hands[1][CARDS.SASHIMI] >= 2:
           return 4
@@ -122,7 +126,7 @@ class AiBase(ABC):
       return 3
     
     elif card == CARDS.DUMPLING:
-      if selection[CARDS.DUMPLING]>4:
+      if selection[CARDS.DUMPLING] > 4:
         return 0
       if selection[CARDS.DUMPLING] == 4:
         return 5
@@ -163,7 +167,7 @@ class AiBase(ABC):
         if max(maki) == myMaki+value:
           return 3
 
-      if max(maki) > myMaki+value+3:
+      if max(maki) > myMaki+value+5:
         return 0
       if card == CARDS.MAKI_2:
         return 1.5
