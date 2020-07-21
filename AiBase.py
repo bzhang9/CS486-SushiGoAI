@@ -1,5 +1,6 @@
 from abc import ABC
 from Cards import calculateScore, CARDS
+import random
 
 class AiBase(ABC):
   def __init__(self, index, random):
