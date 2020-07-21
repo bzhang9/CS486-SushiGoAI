@@ -63,13 +63,18 @@ def play(state, ai):
 
     if ai.get(i) == None:
       while cardi == None or cardt == None:
-        print("ALL PLAYERS SELECTED CARDS:")
+        print("--  ALL PLAYERS SELECTED CARDS:")
         for p in range(state.numPlayers):
-          print("PLAYER {0} HAND".format(p))
+          if p == i:
+            continue
+          if ai.get(p) == None:
+            print("--  PLAYER {0} HAND".format(p))
+          else:
+            print("--  PLAYER {0} HAND (AI)".format(p))
           pSelect = state.getPlayerSelection(p)
           for pSKey in pSelect:
             if pSelect[pSKey] != 0:
-              print("{0}: {1}".format(pSKey, pSelect[pSKey]))
+              print("--  {0}: {1}".format(pSKey, pSelect[pSKey]))
 
           print(SEPARATOR)
         print(SEPARATOR)
