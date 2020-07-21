@@ -1,7 +1,7 @@
 from State import State
 
 
-###from <AI> import <AI>
+from AiBase import AiBase
 
 # ### means to be implemented for AI player
 
@@ -41,8 +41,8 @@ def printSelected(s):
 # if aiIndex is passed in, the ai will select a card for the player at index aiIndex
 def play(state, ai, aiIndex = None):
   if aiIndex == None and ai != None:
-    ###aiIndex = ai.index
-    pass
+    aiIndex = ai.index
+    ###pass
 
   # list of pairs
   selected = []
@@ -64,8 +64,8 @@ def play(state, ai, aiIndex = None):
         if cardi == None or cardt == None:
           print("ERROR: Invalid selection (ci:{0}, ct{1}".format(cardi, cardt))
     else:
-      ###cardi, cardt = ai.chooseCard(selection, hand, score)
-      pass
+      cardi, cardt = ai.chooseCard(selection, hand, score)
+      ###pass
     if cardi != None and cardt != None:
       selected.append([cardi, cardt])
         
@@ -76,8 +76,8 @@ def play(state, ai, aiIndex = None):
   if success:
     printSelected(selected)
     if ai != None:
-      ###ai.endOfTurn(selected)
-      pass
+      ai.endOfTurn(selected)
+      ###pass
   #else:
     #TODO may not need to do anything
 
@@ -99,8 +99,8 @@ if __name__ == '__main__':
     print(SEPARATOR)
     aiIndex = None
   else:
-    ###ai = AI(aiIndex)
-    pass
+    ai = AiBase(aiIndex)
+    ###pass
   
   seed = input("Provide seed for shuffling? (enter single character for no, else provide seed >= 10): ")
   if len(seed) > 1:
