@@ -1,3 +1,4 @@
+import sys
 from State import State
 
 
@@ -77,32 +78,56 @@ def play(state, ai):
     #TODO may not need to do anything
 
 if __name__ == '__main__':
-  numPlayers = int(input("Number of Players: "))
-  state = State(numPlayers)
-
-
-
-
+  numPlayers = None
   ai = {}
-  while True:
-    aiIndex = int(input("AI Player Index (Negative value for no more additional): "))
+  seed = "0"
 
-    if aiIndex >= numPlayers:
-      print("ERROR: {0} greater than max value {1}".format(aiIndex, numPlayers))
+
+  if len(sys.argv) > 1:
+    argi = 1
+    numPlayers = int(sys.argv[argi])
+    argi = argi + 1
+    seed = sys.argv[argi]
+    argi = argi + 1
+    while argi < (len(sys.argv) - 1):
+      aiIndex = int(sys.argv[argi])
+      if aiIndex >= numPlayers:
+        raise Exception("CRITICAL ERROR: {0} greater than max value {1}".format(aiIndex, numPlayers))
+      elif aiIndex < 0:
+        raise Exception("CRITICAL ERROR: {0} less than 0".format(aiIndex))
+      argi = argi + 1
+      aiType = int(sys.argv[argi])
+      argi = argi + 1
+      if ai.get(aiIndex) != None:
+        raise Exception("CRITICAL ERROR: Duplicate AI Index, {0}".format(aiIndex))
+
+      if aiType == 0:
+        ai[aiIndex] = AiBase(aiIndex)
+      # Add more aiTypes here
+        
+  else:
+    numPlayers = int(input("Number of Players: "))
+    while True:
+      aiIndex = int(input("AI Player Index (Negative value for no more additional): "))
+
+      if aiIndex >= numPlayers:
+        print("ERROR: {0} greater than max value {1}".format(aiIndex, numPlayers))
       
-    elif aiIndex < 0:
-      print(SEPARATOR)
-      print("Index {0}: No AI player set".format(aiIndex))
-      print(SEPARATOR)
-      break
-    elif ai.get(aiIndex) == None:
-      ai[aiIndex] = AiBase(aiIndex)
-    else:
-      print("ERROR: Duplicate AI Index")
+      elif aiIndex < 0:
+        print(SEPARATOR)
+        print("Index {0}: No AI player set".format(aiIndex))
+        print(SEPARATOR)
+        break
+      elif ai.get(aiIndex) == None:
+        ai[aiIndex] = AiBase(aiIndex)
+      else:
+        print("ERROR: Duplicate AI Index")
   
-  seed = input("Provide seed for shuffling? (enter single character for no, else provide seed >= 10): ")
+    seed = input("Provide seed for shuffling? (enter single character for no, else provide seed >= 10): ")
+
+  state = State(numPlayers)
   if len(seed) > 1:
-    state.setRandSeed(seed)
+    state.setRandSeed(int(seed))
 
   state.initGame()
 
