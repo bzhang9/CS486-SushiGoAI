@@ -108,7 +108,7 @@ if __name__ == '__main__':
         raise Exception("CRITICAL ERROR: Duplicate AI Index, {0}".format(aiIndex))
 
       if aiType == 0:
-        ai[aiIndex] = AiBase(aiIndex)
+        ai[aiIndex] = AiBase(aiIndex, False) # set this param to true for random mode
       # Add more aiTypes here
 
       # silent mode

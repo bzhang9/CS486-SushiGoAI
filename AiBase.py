@@ -2,12 +2,13 @@ from abc import ABC
 from Cards import calculateScore, CARDS
 
 class AiBase(ABC):
-  def __init__(self, index):
+  def __init__(self, index, random):
     self.index = index
+    self.random = random
     self.selection = {}
 
   def chooseCard(self, selection, hand, score, state):
-    cardi = self.bestSelection(selection, hand, state)
+    cardi = 0 if random else self.bestSelection(selection, hand, state)
     cardt = hand[cardi]
       
     return cardi, cardt
