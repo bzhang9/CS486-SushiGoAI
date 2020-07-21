@@ -169,7 +169,7 @@ if __name__ == '__main__':
     for i in range(len(scores)):
       print("Player " + str(i) + " score: " + str(scores[i]) + " maki: " + str(state.getPlayerMaki(i)))
 
-  f = open("iter8.csv", "a")
+  f = open("myresults.csv", "a+")
   n = state.turn
   line = []
   for k in [CARDS.TEMPURA,CARDS.SASHIMI,CARDS.DUMPLING,CARDS.MAKI_1,CARDS.MAKI_2,CARDS.MAKI_3,CARDS.SALMON_N,CARDS.SQUID_N,CARDS.EGG_N,CARDS.WASABI]:
