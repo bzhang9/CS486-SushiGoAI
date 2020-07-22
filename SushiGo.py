@@ -187,11 +187,11 @@ if __name__ == '__main__':
     for i in range(len(scores)):
       print("Player " + str(i) + " score: " + str(scores[i]) + " maki: " + str(state.getPlayerMaki(i)))
 
-  f = open("myresults.csv", "a+")
+  f = open("myresultsvsai.csv", "a+")
   n = state.turn
   line = []
-  for k in [CARDS.TEMPURA,CARDS.SASHIMI,CARDS.DUMPLING,CARDS.MAKI_1,CARDS.MAKI_2,CARDS.MAKI_3,CARDS.SALMON_N,CARDS.SQUID_N,CARDS.EGG_N,CARDS.WASABI]:
-    line.append(str(state.getPlayerSelection(state.numPlayers-1)[k]/n))
+  line.append(str(scores[0]/n))
+  line.append(str(1+[sorted(scores, reverse=True).index(x) for x in scores][0]))
   line.append(str(scores[state.numPlayers-1]/n))
   line.append(str(1+[sorted(scores, reverse=True).index(x) for x in scores][state.numPlayers-1]))
   f.write(",".join(line)+"\n")

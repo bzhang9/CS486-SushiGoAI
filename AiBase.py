@@ -145,7 +145,7 @@ class AiBase(ABC):
         return 2
       if library[CARDS.DUMPLING] > 3:
         return 2
-      return 1
+      return 1.1
     
     elif card == CARDS.MAKI_1 or card == CARDS.MAKI_2 or card == CARDS.MAKI_3:
       myMaki = 0
@@ -174,7 +174,7 @@ class AiBase(ABC):
         return 1.5
       if card == CARDS.MAKI_1:
         return 0.5 # 1 maki is dog shit don't @ me
-      return 2.05
+      return 2
 
     # add 0.1 to each base nigiri score because denying nigiri is good
     elif card == CARDS.SALMON_N:
